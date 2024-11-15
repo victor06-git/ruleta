@@ -71,7 +71,7 @@ def app_draw():
     x = 200
     y = 50
     for _ in range(5):
-        pygame.draw.arc(screen, color, (x, 250, 200, 200), 0 , math.pi * y, 10)
+        pygame.draw.arc(screen, color, (x, 250, 200, 200), 0 , -1, 10)
         x += 50
         if color == BLACK:    
             color = RED
