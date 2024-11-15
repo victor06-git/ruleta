@@ -22,6 +22,8 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((1200, 900))
 pygame.display.set_caption('Window Title')
 
+clicked = False
+mouse_x, mouse_y = "x"= -1, "y"= -1
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -39,14 +41,21 @@ def main():
 
 # Gestionar events
 def app_events():
+    global clicked
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # Botó tancar finestra
             return False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            clicked = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            clicked = False
+
     return True
 
 # Fer càlculs
 def app_run():
-    pass
+    mouse_x, mouse_y = pygame.mouse.get_pos()
 
 # Dibuixar
 def app_draw():
