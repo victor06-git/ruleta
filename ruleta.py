@@ -50,7 +50,6 @@ def app_events():
             clicked = True
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
-
     return True
 
 # Fer càlculs
@@ -67,6 +66,7 @@ def app_draw():
     font = pygame.font.SysFont("Arial", 55)
     text = font.render('Hello World!', True, BLACK)
     screen.blit(text, (50, 50))
+    roulette = pygame.draw.circle(screen, RED, )
 
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
