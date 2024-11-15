@@ -23,7 +23,7 @@ screen = pygame.display.set_mode((1200, 900))
 pygame.display.set_caption('Window Title')
 
 clicked = False
-mouse_x, mouse_y = "x"= -1, "y"= -1
+mouse_x, mouse_y = -1, -1
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -66,7 +66,19 @@ def app_draw():
     font = pygame.font.SysFont("Arial", 55)
     text = font.render('Hello World!', True, BLACK)
     screen.blit(text, (50, 50))
-    roulette = pygame.draw.circle(screen, RED, )
+    "pygame.draw.circle(screen, RED, (250,250), 150)"
+    color = RED
+    x = 200
+    y = 50
+    for _ in range(5):
+        pygame.draw.arc(screen, color, (x, 250, 200, 200), 0 , math.pi * y, 10)
+        x += 50
+        if color == BLACK:    
+            color = RED
+        elif color == RED:
+            color = GREEN
+        elif color == GREEN:
+            color = BLACK
 
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
