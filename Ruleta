@@ -4,4 +4,15 @@ Jordi/ Victor
 Ruleta --> Caselles negres/vermelles
 Números del 0 al 36
 
-H
+Dibuix:
+        - 3 columnes i 12 files
+        - Espai apostes vermell/negre
+        - Espai apostes parell/senar
+        - Espai per a les tres columnes
+        - Banca ( quadre )
+Jugadors i fitxes:
+                    - Tres jugadors: Lila, Taronja, Blau
+                    - Saldo original: 100 unitats
+                    - Fitxes: 100,50,20,10,5
+                    - Taulell amb fitxes color de cada jugador per torn. 
+
