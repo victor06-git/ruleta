@@ -72,6 +72,7 @@ def app_events():
 
 # Fer càlculs
 def app_run():
+    global spinning, angle,spin_angle
     mouse_x, mouse_y = pygame.mouse.get_pos()
     if spinning:
         angle += spin_angle / 60
@@ -88,7 +89,8 @@ def app_draw():
     # Escriure un text de prova
     font = pygame.font.SysFont("Arial", 55)
     
-    
+    draw_roulette()
+    pygame.draw.polygon(screen, BLACK, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2, screen_height // 2 - 300)])
 
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
