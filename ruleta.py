@@ -23,8 +23,8 @@ clock = pygame.time.Clock()
 
 
 # Definir la finestra
-screen_width = 1200
-screen_height = 900
+screen_width = 900
+screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Roulette')
 
@@ -35,8 +35,8 @@ spin_angle = 0
 clicked = False
 mouse_x, mouse_y = -1, -1
 
-colors = [RED, BLACK] * 18 + [GREEN]
-random.shuffle(colors)
+
+
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -101,8 +101,13 @@ def draw_roulette():
         angle_rad = math.radians(angle + i * (360 / 37))
         x  = screen_width // 2 + 200 * math.cos(angle_rad)
         y = screen_height // 2 + 200 * math.sin(angle_rad)
-
-        pygame.draw.circle(screen, colors[i], (int(x), int(y)), 30)
+        if i == 0:
+            color = GREEN
+        elif i % 2 == 0:
+            color = RED
+        else:
+            color = BLACK
+        pygame.draw.circle(screen, color, (int(x), int(y)), 30)
         font = pygame.font.SysFont(None, 36)
         text  = font.render(str(numbers[i]), True, WHITE)
         screen.blit(text, (int(x) - 10, int(y) - 10))
