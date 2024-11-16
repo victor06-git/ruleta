@@ -54,7 +54,7 @@ def main():
 
 # Gestionar events
 def app_events():
-    global clicked
+    global clicked, spinning, spin_angle
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # Botó tancar finestra
@@ -63,12 +63,22 @@ def app_events():
             clicked = True
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                spinning = True
+                spin_angle = random.randint(720, 1440)
+    
     return True
 
 # Fer càlculs
 def app_run():
     mouse_x, mouse_y = pygame.mouse.get_pos()
-
+    if spinning:
+        angle += spin_angle / 60
+        spin_angle -= 1
+        if spin_angle <= 0:
+            spinning = False
+            spin_angle = 0
 # Dibuixar
 def app_draw():
     
@@ -92,7 +102,8 @@ def draw_roulette():
 
         pygame.draw.circle(screen, colors[i], (int(x), int(y)), 30)
         font = pygame.font.SysFont(None, 36)
-        text  = font.render(str(numbers[i]))
+        text  = font.render(str(numbers[i]), True, WHITE)
+        screen.blit(text, (int(x) - 10, int(y) - 10))
 
 if __name__ == "__main__":
     main()
