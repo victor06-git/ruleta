@@ -99,18 +99,31 @@ def draw_roulette():
     global angle_rad, angle
     for i in range(37):
         angle_rad = math.radians(angle + i * (360 / 37))
-        x  = screen_width // 2 + 200 * math.cos(angle_rad)
-        y = screen_height // 2 + 200 * math.sin(angle_rad)
+        x  = screen_width // 2 + 250 * math.cos(angle_rad)
+        y = screen_height // 2 + 250 * math.sin(angle_rad)
+        x2 = screen_width // 2 + 250 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
+        y2 = screen_height // 2 + 250 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
+        rotate_angle = math.degrees(math.atan2(y2 - y, x2 - x))
         if i == 0:
             color = GREEN
         elif i % 2 == 0:
             color = RED
         else:
             color = BLACK
-        pygame.draw.circle(screen, color, (int(x), int(y)), 20)
-        font = pygame.font.SysFont(None, 36)
+        polygon_points = [
+            (screen_width // 2 , screen_height // 2 ),
+            (x, y),
+            (x2 , y2)
+        ]
+        pygame.draw.polygon(screen, color, polygon_points)
+
+        font = pygame.font.SysFont(None, 25)
         text  = font.render(str(numbers[i]), True, WHITE)
-        screen.blit(text, (int(x) - 10, int(y) - 10))
+        text_rect = text.get_rect()
+        rotated_text = pygame.transform.rotate(text, rotate_angle)
+        rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2), int((y + y2) / 2)))
+        
+        screen.blit(text, rotated_text_rect)
 
 if __name__ == "__main__":
     main()
