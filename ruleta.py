@@ -66,7 +66,7 @@ def app_events():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 spinning = True
-                spin_angle = random.randint(720, 1440)
+                spin_angle = random.randint(600, 900)
     
     return True
 
