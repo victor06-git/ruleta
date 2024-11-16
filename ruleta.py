@@ -5,6 +5,9 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import sys
+import random
+from funciones import *
+from variables import *
 
 # Definir colors
 WHITE = (255, 255, 255)
@@ -18,12 +21,22 @@ ORANGE = (255, 165, 0)
 pygame.init()
 clock = pygame.time.Clock()
 
+
 # Definir la finestra
-screen = pygame.display.set_mode((1200, 900))
-pygame.display.set_caption('Window Title')
+screen_width = 1200
+screen_height = 900
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Roulette')
+
+angle = 0
+spinning = False
+spin_angle = 0
 
 clicked = False
 mouse_x, mouse_y = -1, -1
+
+colors = [RED, BLACK] * 18 + [GREEN]
+random.shuffle(colors)
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -64,24 +77,22 @@ def app_draw():
 
     # Escriure un text de prova
     font = pygame.font.SysFont("Arial", 55)
-    text = font.render('Hello World!', True, BLACK)
-    screen.blit(text, (50, 50))
-    "pygame.draw.circle(screen, RED, (250,250), 150)"
-    color = RED
-    x = 200
-    y = 50
-    for _ in range(5):
-        pygame.draw.arc(screen, color, (x, 250, 200, 200), 0 , -1, 10)
-        x += 50
-        if color == BLACK:    
-            color = RED
-        elif color == RED:
-            color = GREEN
-        elif color == GREEN:
-            color = BLACK
+    
+    
 
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
+#Roulette
+def draw_roulette():
+    global angle_rad, angle
+    for i in range(37):
+        angle_rad = math.radians(angle + i * (360 / 37))
+        x  = screen_width // 2 + 200 * math.cos(angle_rad)
+        y = screen_height // 2 + 200 * math.sin(angle_rad)
+
+        pygame.draw.circle(screen, colors[i], (int(x), int(y)), 30)
+        font = pygame.font.SysFont(None, 36)
+        text  = font.render(str(numbers[i]))
 
 if __name__ == "__main__":
     main()
