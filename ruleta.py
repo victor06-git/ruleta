@@ -90,7 +90,7 @@ def app_draw():
     font = pygame.font.SysFont("Arial", 55)
     
     draw_roulette()
-    pygame.draw.polygon(screen, BLACK, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2 , screen_height // 2 - 150 )])
+    pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2 , screen_height // 2 - 150 )])
 
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
