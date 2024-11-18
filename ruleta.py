@@ -16,16 +16,19 @@ GREEN = (0, 255, 0)
 BLUE  = (0, 0, 255)
 PURPLE = (128, 0, 128)
 ORANGE = (255, 165, 0) 
+DARK_GREEN = (0, 180, 0)
+GREY = (120,120,120)
+YELLOW = (243,228,67)
 
 pygame.init()
 clock = pygame.time.Clock()
 
 
 # Definir la finestra
-screen_width = 900
+screen_width = 1200
 screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Roulette')
+pygame.display.set_caption('Ruleta')
 
 angle = 0
 spinning = False
@@ -65,7 +68,7 @@ def app_events():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 spinning = True
-                spin_angle = random.randint(600, 900)
+                spin_angle = random.randint(200, 700)
     
     return True
 
@@ -83,10 +86,8 @@ def app_run():
 def app_draw():
     
     # Pintar el fons de blanc
-    screen.fill(WHITE)
+    screen.fill(GREY)
 
-    # Escriure un text de prova
-    font = pygame.font.SysFont("Arial", 55)
     
     draw_roulette()
     pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2 , screen_height // 2 - 150 )])
@@ -96,33 +97,49 @@ def app_draw():
 #Roulette
 def draw_roulette():
     global angle_rad, angle
-    for i in range(37):
+    for i in numbers:
         angle_rad = math.radians(angle + i * (360 / 37))
-        x  = screen_width // 2 + 250 * math.cos(angle_rad)
-        y = screen_height // 2 + 250 * math.sin(angle_rad)
-        x2 = screen_width // 2 + 250 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
-        y2 = screen_height // 2 + 250 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
+        x  = screen_width // 2 + 250 * 0.9 * math.cos(angle_rad)
+        y = screen_height // 2 + 250 * 0.9 * math.sin(angle_rad)
+        x2 = screen_width // 2 + 250 * 0.9 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
+        y2 = screen_height // 2 + 250 * 0.9 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
         rotate_angle = math.degrees(math.atan2(y2 - y, x2 - x))
+        
+        #Color ruleta / números
         if i == 0:
             color = GREEN
         elif i % 2 == 0:
             color = RED
         else:
             color = BLACK
+            
         polygon_points = [
             (screen_width // 2 , screen_height // 2 ),
             (x, y),
             (x2 , y2)
         ]
+        
+        mid_x = (x + x2) / 2
+        mid_y  = (y + y2) / 2
+        radius = 250 * 0.7
+        text_x = screen_width // 2 + radius * math.cos(math.radians(angle + (i + 0.5) * (360 / 37)))
+        text_y = screen_height // 2 + radius * math.sin(math.radians(angle + (i + 0.5) * (360 / 37)))
+        
+
+        #Ruleta y contorno amarillo/oro
         pygame.draw.polygon(screen, color, polygon_points)
+        pygame.draw.polygon(screen, YELLOW, polygon_points, 1)
 
         font = pygame.font.SysFont(None, 25)
         text  = font.render(str(numbers[i]), True, WHITE)
-        text_rect = text.get_rect()
-        rotated_text = pygame.transform.rotate(text, rotate_angle)
-        rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2), int((y + y2) / 2)))
+        text_rect = text.get_rect(center=(int(text_x), int(text_y)))
+        #rotated_text = pygame.transform.rotate(text, -rotate_angle)
+        #rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2 + 20), int((y + y2) / 2 - 10)))
         
-        screen.blit(text, rotated_text_rect)
+        #Circulo interior blanco
+        pygame.draw.circle(screen, WHITE, (screen_width // 2, screen_height // 2), 20)
+        
+        screen.blit(text, text_rect)
 
 if __name__ == "__main__":
     main()
