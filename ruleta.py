@@ -33,10 +33,22 @@ pygame.display.set_caption('Ruleta')
 angle = 0
 spinning = False
 spin_angle = 0
+target_angle = 0
 
 clicked = False
 mouse_x, mouse_y = -1, -1
 selected_arrow_number = None
+
+#Contador
+total_spins = 0
+ocurrences = [0] * 37
+
+percentage_dict = {
+    0: 2, 1: 5, 2: 15, 3: 20, 4: 10, 5: 5, 6: 5, 7: 5, 8: 5, 9: 5, 10: 5,
+    11: 5, 12: 5, 13: 5, 14: 5, 15: 5, 16: 5, 17: 5, 18: 5, 19: 5, 20: 5, 21: 5, 22: 5,
+    23: 5, 24: 5, 25: 5, 26: 5, 27: 5, 28: 5, 29: 5, 30: 5, 31: 5, 32: 5, 33: 5, 34: 5,
+    35: 5, 36: 5
+    }
 
 
 
@@ -57,7 +69,7 @@ def main():
 
 # Gestionar events
 def app_events():
-    global clicked, spinning, spin_angle
+    global clicked, spinning, spin_angle, selected_arrow_number, spin_angle, target_angle
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # Botó tancar finestra
@@ -69,13 +81,15 @@ def app_events():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 spinning = True
-                spin_angle = random.randint(200, 700)
+                selected_arrow_number = select_number(percentage_dict)
+                target_angle = calculate_target(selected_arrow_number)
+                spin_angle = random.randint(720, 1800) + target_angle
     
     return True
 
 # Fer càlculs
 def app_run():
-    global spinning, angle,spin_angle, selected_arrow_number
+    global spinning, angle,spin_angle, total_spins, ocurrences
     mouse_x, mouse_y = pygame.mouse.get_pos()
     if spinning:
         angle += spin_angle / 60
@@ -84,10 +98,8 @@ def app_run():
             spinning = False
             spin_angle = 0
 
-            arrow_angle = 270
-            seg_angle = (360 / len(numbers))
-            arrow_segment = int((arrow_angle - angle) / seg_angle) % len(numbers)
-            selected_arrow_number = numbers[arrow_segment]       
+            ocurrences[selected_arrow_number] += 1
+            total_spins += 1
             
         
         
@@ -100,6 +112,11 @@ def app_draw():
     
     draw_roulette()
     #Flecha azul
+    draw_arrow()
+    # Actualitzar el dibuix a la finestra
+    pygame.display.update()
+
+def draw_arrow():
     pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250),
                                        (screen_width // 2 + 10, screen_height // 2 - 250),
                                        (screen_width // 2 , screen_height // 2 - 200 )])
@@ -107,8 +124,6 @@ def app_draw():
             font = pygame.font.SysFont(None, 50)
             text_number = font.render(f"Número: {selected_arrow_number}", True, BLUE)
             screen.blit(text_number, (screen_width // 2 - 100, 50))
-    # Actualitzar el dibuix a la finestra
-    pygame.display.update()
 #Roulette
 def draw_roulette():
     global angle_rad, angle
@@ -155,5 +170,20 @@ def draw_roulette():
         
         screen.blit(text, text_rect)
 
+def calculate_target(selected_number):
+    #Cada número té un angle determinat
+    angle_number = 360 / 37
+    return selected_number * angle_number
+
+#Funció que selecciona el número per el seu percentatge de sortida
+def select_number(percentage_dict):
+    total = sum(percentage_dict.values())
+    rand = random.randint(1, total)
+    cumulative = 0
+
+    for number, percentage in percentage_dict.items():
+        cumulative += percentage
+        if rand <= cumulative:
+            return number
 if __name__ == "__main__":
     main()
