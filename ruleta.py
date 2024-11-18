@@ -98,6 +98,9 @@ def app_run():
             spinning = False
             spin_angle = 0
 
+            final_angle = angle % 360
+            selected_arrow_number = int(final_angle / (360 / 37))
+
             ocurrences[selected_arrow_number] += 1
             total_spins += 1
             
@@ -116,6 +119,8 @@ def app_draw():
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
 
+
+#Dibuja la ruleta
 def draw_arrow():
     pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250),
                                        (screen_width // 2 + 10, screen_height // 2 - 250),
@@ -180,6 +185,7 @@ def select_number(percentage_dict):
     total = sum(percentage_dict.values())
     rand = random.randint(1, total)
     cumulative = 0
+
 
     for number, percentage in percentage_dict.items():
         cumulative += percentage
