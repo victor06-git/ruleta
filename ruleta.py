@@ -182,23 +182,23 @@ def draw_arrow():
 #Roulette
 def draw_roulette():
     global angle_rad, angle
-    for number, base_angle in roulette_numbers_angle.items():
+    for i in numbers:
 
-        current_angle = math.radians(angle + base_angle)
-        next_angle = math.radians(angle + base_angle + (360 / 37))
+        current_angle = math.radians(angle + i * (360 / 37))
+        next_angle = math.radians(angle + ( i + 1 ) * (360 / 37))
 
 
        
-        x  = screen_width // 2 + 250 * 0.9 * math.cos(angle_rad)
-        y = screen_height // 2 + 250 * 0.9 * math.sin(angle_rad)
-        x2 = screen_width // 2 + 250 * 0.9 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
-        y2 = screen_height // 2 + 250 * 0.9 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
+        x = screen_width // 2 + 250 * 0.9 * math.cos(current_angle)
+        y = screen_height // 2 + 250 * 0.9 * math.sin(current_angle)
+        x2 = screen_width // 2 + 250 * 0.9 * math.cos(next_angle)
+        y2 = screen_height // 2 + 250 * 0.9 * math.sin(next_angle)
        
               
         #Color ruleta / números
-        if number == 0:
+        if i == 0:
             color = GREEN
-        elif number % 2 == 0:
+        elif i % 2 == 0:
             color = RED
         else:
             color = BLACK
@@ -209,11 +209,13 @@ def draw_roulette():
             (x2 , y2)
         ]
         
+        roulette_order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
+        current_number = roulette_order[i]
        
         radius = 250 * 0.7
-        text_angle = math.radians(angle + base_angle + (360 / 37))
-        text_x = screen_width // 2 + radius * math.cos(math.radians(text_angle))
-        text_y = screen_height // 2 + radius * math.sin(math.radians(text_angle))
+        text_angle = math.radians(angle + (i + 0.5) * (360 / 37))
+        text_x = screen_width // 2 + radius * math.cos(text_angle)
+        text_y = screen_height // 2 + radius * math.sin(text_angle)
         
 
         #Ruleta y contorno amarillo/oro
@@ -221,7 +223,7 @@ def draw_roulette():
         pygame.draw.polygon(screen, YELLOW, polygon_points, 1)
 
         font = pygame.font.SysFont(None, 25)
-        text  = font.render(str(number), True, WHITE)
+        text  = font.render(str(current_number), True, WHITE)
         text_rect = text.get_rect(center=(int(text_x), int(text_y)))
         #rotated_text = pygame.transform.rotate(text, -rotate_angle)
         #rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2 + 20), int((y + y2) / 2 - 10)))
@@ -232,11 +234,7 @@ def draw_roulette():
         screen.blit(text, text_rect)
 
 def calculate_target_angle(selected_number):
-    roulette_order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
-    position = roulette_order.index(selected_number)
-    segment_angle = 360 / 37
-    target = 270 - (position * segment_angle)
-    return target % 360
+   return (270 - roulette_numbers_angle[selected_number]) % 360
 
 #Funció que selecciona el número per el seu percentatge de sortida
 def select_number(percentage_dict):
