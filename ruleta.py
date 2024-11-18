@@ -118,6 +118,7 @@ def draw_roulette():
             (x, y),
             (x2 , y2)
         ]
+        
         mid_x = (x + x2) / 2
         mid_y  = (y + y2) / 2
         radius = 250 * 0.7
@@ -125,16 +126,20 @@ def draw_roulette():
         text_y = screen_height // 2 + radius * math.sin(math.radians(angle + (i + 0.5) * (360 / 37)))
         
 
+        #Ruleta y contorno amarillo/oro
         pygame.draw.polygon(screen, color, polygon_points)
         pygame.draw.polygon(screen, YELLOW, polygon_points, 1)
 
         font = pygame.font.SysFont(None, 25)
         text  = font.render(str(numbers[i]), True, WHITE)
-        rotated_text = pygame.transform.rotate(text, -rotate_angle)
-        rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2 + 20), int((y + y2) / 2 - 10)))
+        text_rect = text.get_rect(center=(int(text_x), int(text_y)))
+        #rotated_text = pygame.transform.rotate(text, -rotate_angle)
+        #rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2 + 20), int((y + y2) / 2 - 10)))
+        
+        #Circulo interior blanco
         pygame.draw.circle(screen, WHITE, (screen_width // 2, screen_height // 2), 20)
         
-        screen.blit(rotated_text, rotated_text_rect)
+        screen.blit(text, text_rect)
 
 if __name__ == "__main__":
     main()
