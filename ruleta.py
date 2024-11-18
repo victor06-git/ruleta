@@ -36,6 +36,7 @@ spin_angle = 0
 
 clicked = False
 mouse_x, mouse_y = -1, -1
+selected_arrow_number = None
 
 
 
@@ -74,7 +75,7 @@ def app_events():
 
 # Fer càlculs
 def app_run():
-    global spinning, angle,spin_angle
+    global spinning, angle,spin_angle, selected_arrow_number
     mouse_x, mouse_y = pygame.mouse.get_pos()
     if spinning:
         angle += spin_angle / 60
@@ -82,6 +83,14 @@ def app_run():
         if spin_angle <= 0:
             spinning = False
             spin_angle = 0
+
+            arrow_angle = 270
+            seg_angle = (360 / len(numbers))
+            arrow_segment = int((arrow_angle - angle) / seg_angle) % len(numbers)
+            selected_arrow_number = numbers[arrow_segment]       
+            
+        
+        
 # Dibuixar
 def app_draw():
     
@@ -90,8 +99,14 @@ def app_draw():
 
     
     draw_roulette()
-    pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2 , screen_height // 2 - 150 )])
-
+    #Flecha azul
+    pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250),
+                                       (screen_width // 2 + 10, screen_height // 2 - 250),
+                                       (screen_width // 2 , screen_height // 2 - 200 )])
+    if not spinning and selected_arrow_number != None:
+            font = pygame.font.SysFont(None, 50)
+            text_number = font.render(f"Número: {selected_arrow_number}", True, BLUE)
+            screen.blit(text_number, (screen_width // 2 - 100, 50))
     # Actualitzar el dibuix a la finestra
     pygame.display.update()
 #Roulette
@@ -103,7 +118,7 @@ def draw_roulette():
         y = screen_height // 2 + 250 * 0.9 * math.sin(angle_rad)
         x2 = screen_width // 2 + 250 * 0.9 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
         y2 = screen_height // 2 + 250 * 0.9 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
-        rotate_angle = math.degrees(math.atan2(y2 - y, x2 - x))
+       
         
         #Color ruleta / números
         if i == 0:
@@ -112,15 +127,14 @@ def draw_roulette():
             color = RED
         else:
             color = BLACK
-            
+        #Coordenadas ruleta
         polygon_points = [
             (screen_width // 2 , screen_height // 2 ),
             (x, y),
             (x2 , y2)
         ]
         
-        mid_x = (x + x2) / 2
-        mid_y  = (y + y2) / 2
+       
         radius = 250 * 0.7
         text_x = screen_width // 2 + radius * math.cos(math.radians(angle + (i + 0.5) * (360 / 37)))
         text_y = screen_height // 2 + radius * math.sin(math.radians(angle + (i + 0.5) * (360 / 37)))
