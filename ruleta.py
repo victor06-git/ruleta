@@ -69,6 +69,10 @@ def app_events():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Botón cerrar ventana
             return False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                spinning = True
+        
         
 
     return True
