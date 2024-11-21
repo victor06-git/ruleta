@@ -173,15 +173,14 @@ def table():
         }
     }
 
-    for fila, color in numeros_caselles:
-        
-        
+    """ for fila, color in numeros_caselles:
         if color == "Rojo":
             color_casella = RED
         elif color == "Negro":
-            color_casella = BLACK
-            
-        pygame.draw.polygon(screen, color_casella, )
+            color_casella = BLACK"""
+    x2 = 50
+    x3 = 150
+    pygame.draw.polygon(screen, BLACK, [(screen_width // 2 + x2, screen_height // 2 - 20), (screen_width // 2 + x3, screen_height // 2 - 20), (screen_width // 2 + x3, screen_height // 2 + 65), (screen_width // 2 + x2, screen_height // 2 + 65)], 4)
 
         
 
