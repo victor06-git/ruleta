@@ -47,6 +47,8 @@ velocity = 0.1
 acceleration = 0.03
 spinning = False
 
+
+
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -66,24 +68,20 @@ def main():
 # Gestionar events
 def app_events():
     global clicked, spinning
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Botón cerrar ventana
             return False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                spinning = True
-        
-        
-
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            clicked = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            clicked = False
     return True
 
 # Fer càlculs
 def app_run():
-    
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    
     pass
-    
         
 # Dibuixar
 def app_draw():
@@ -98,7 +96,6 @@ def app_draw():
 
 #Roulette
 def draw_roulette():
-    global spinning
 
     rad_first = ((360 / 37) * (math.pi / 180)) #First angle
     rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
@@ -108,38 +105,14 @@ def draw_roulette():
 
     rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
-
-    if spinning == True:
-        vel = 0.1
-        rad_1 += vel
-        rad_2 += vel
-        rad_first += vel
-        rad_second += vel
-        rad_num1 += vel
-        rad_num += vel
-
-        vel -= 0.001
-
-        if vel <= 0:
-            spinning = False
-        
-    
-    """rad_first = ((360 / 37) * (math.pi / 180)) #First angle
-    rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
-
-    rad_1 = rad_second
-    rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
-
-    rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
-    rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2"""
    
     #Ruleta parte verde del 0
-    pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
-                        (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
-                        (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
-    pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2), 
-                                         (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
-                                         (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))], 2)
+    pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2 - 100),
+                        (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first)) - 100),
+                        (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)) - 100)])
+    pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2 - 100), 
+                                         (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first)) - 100),
+                                         (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)) - 100)], 2)
        
     #RULETA ROJO/NEGRO
     for angle in range(36):    
@@ -149,17 +122,17 @@ def draw_roulette():
         else:
             color = BLACK
 
-        pygame.draw.polygon(screen, color, [(screen_width // 2 , screen_height // 2), 
-                                            (screen_width // 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1))),
-                                            (screen_width // 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)))])
-        pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2), 
-                                             (screen_width // 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1))),
-                                             (screen_width // 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)))], 2)
+        pygame.draw.polygon(screen, color, [(screen_width // 2 , screen_height // 2 - 100), 
+                                            (screen_width // 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1)) - 100),
+                                            (screen_width // 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)) - 100)])
+        pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2 - 100), 
+                                             (screen_width // 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1)) - 100),
+                                             (screen_width // 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)) - 100)], 2)
         rad_1 += 0.1698
         rad_2 += 0.1698
     #Centro ruleta y borde
-    pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 260, 20)
-    pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 150)
+    pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2 - 100), 260, 20)
+    pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2 - 100), 150)
 
     #lista números ruleta
     roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 
@@ -167,22 +140,23 @@ def draw_roulette():
                         9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
     
     x0 = (screen_width // 2 ) + (215 * math.cos(rad_num1))
-    y0 = screen_height // 2 + (215 * math.sin(rad_num1))
+    y0 = screen_height // 2 + (215 * math.sin(rad_num1)) - 100
     font0 = pygame.font.Font(None, 20)
     text0 = font0.render(str(0), True, WHITE)
     text_rect0 = (x0,y0)
     screen.blit(text0, text_rect0)
     
     for number in roulette_numbers:    
-        x = (screen_width // 2 ) + (215 * math.cos(rad_num))
-        y = screen_height // 2 + (215 * math.sin(rad_num))
+        x = (screen_width // 2) + (215 * math.cos(rad_num))
+        y = screen_height // 2 + (215 * math.sin(rad_num)) - 100
         font = pygame.font.Font(None, 20)
         text = font.render(str(number), True, WHITE)
         text_rect = (x,y)
         screen.blit(text, text_rect)
         rad_num += ((360/37) * (math.pi/180)) 
 
-
+def table():
+    pass
 
 if __name__ == "__main__":
     main()
