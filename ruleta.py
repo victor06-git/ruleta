@@ -43,9 +43,7 @@ mouse_x, mouse_y = -1, -1
 
 
 
-velocity = 0.1
-acceleration = 0.03
-spinning = False
+
 
 
 
