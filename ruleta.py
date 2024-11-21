@@ -20,6 +20,9 @@ DARK_GREEN = (0, 180, 0)
 GREY = (120,120,120)
 YELLOW = (243,228,67)
 
+
+#Para saber como va a girar la ruleta y definir el angulo que lleva cada número para mostrarlo
+
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -30,13 +33,10 @@ screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Ruleta')
 
-angle = 0
-spinning = False
-spin_angle = 0
+
 
 clicked = False
 mouse_x, mouse_y = -1, -1
-
 
 
 # Bucle de l'aplicació
@@ -56,8 +56,7 @@ def main():
 
 # Gestionar events
 def app_events():
-    global clicked, spinning, spin_angle
-
+    global clicked, spinning
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # Botó tancar finestra
             return False
@@ -68,20 +67,16 @@ def app_events():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 spinning = True
-                spin_angle = random.randint(200, 700)
+                
     
     return True
 
 # Fer càlculs
 def app_run():
-    global spinning, angle,spin_angle
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    if spinning:
-        angle += spin_angle / 60
-        spin_angle -= 1
-        if spin_angle <= 0:
-            spinning = False
-            spin_angle = 0
+    pass
+    
+        
 # Dibuixar
 def app_draw():
     
@@ -90,56 +85,24 @@ def app_draw():
 
     
     draw_roulette()
-    pygame.draw.polygon(screen, BLUE, [(screen_width // 2 - 10, screen_height // 2 - 250), (screen_width // 2 + 10, screen_height // 2 - 250), (screen_width // 2 , screen_height // 2 - 150 )])
-
-    # Actualitzar el dibuix a la finestra
+    
     pygame.display.update()
+
+
+
 #Roulette
 def draw_roulette():
-    global angle_rad, angle
-    for i in numbers:
-        angle_rad = math.radians(angle + i * (360 / 37))
-        x  = screen_width // 2 + 250 * 0.9 * math.cos(angle_rad)
-        y = screen_height // 2 + 250 * 0.9 * math.sin(angle_rad)
-        x2 = screen_width // 2 + 250 * 0.9 * math.cos(math.radians(angle + (i + 1)* (360 / 37)))   
-        y2 = screen_height // 2 + 250 * 0.9 * math.sin(math.radians(angle + (i + 1)* (360 / 37)))
-        rotate_angle = math.degrees(math.atan2(y2 - y, x2 - x))
-        
-        #Color ruleta / números
-        if i == 0:
-            color = GREEN
-        elif i % 2 == 0:
-            color = RED
-        else:
-            color = BLACK
-            
-        polygon_points = [
-            (screen_width // 2 , screen_height // 2 ),
-            (x, y),
-            (x2 , y2)
-        ]
-        
-        mid_x = (x + x2) / 2
-        mid_y  = (y + y2) / 2
-        radius = 250 * 0.7
-        text_x = screen_width // 2 + radius * math.cos(math.radians(angle + (i + 0.5) * (360 / 37)))
-        text_y = screen_height // 2 + radius * math.sin(math.radians(angle + (i + 0.5) * (360 / 37)))
-        
+    
+    rad_first = ((360 / 37) * (math.pi / 180)) #First angle
+    rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
 
-        #Ruleta y contorno amarillo/oro
-        pygame.draw.polygon(screen, color, polygon_points)
-        pygame.draw.polygon(screen, YELLOW, polygon_points, 1)
+    rad_1 = rad_second
+    rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
 
-        font = pygame.font.SysFont(None, 25)
-        text  = font.render(str(numbers[i]), True, WHITE)
-        text_rect = text.get_rect(center=(int(text_x), int(text_y)))
-        #rotated_text = pygame.transform.rotate(text, -rotate_angle)
-        #rotated_text_rect = rotated_text.get_rect(center=(int((x + x2) / 2 + 20), int((y + y2) / 2 - 10)))
-        
-        #Circulo interior blanco
-        pygame.draw.circle(screen, WHITE, (screen_width // 2, screen_height // 2), 20)
-        
-        screen.blit(text, text_rect)
-
+    rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
+    rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
+    pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
+                        (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
+                        (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
 if __name__ == "__main__":
     main()
