@@ -124,14 +124,17 @@ def draw_roulette():
         pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2), 
                                              (screen_width // 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1))),
                                              (screen_width // 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)))], 2)
-        rad_1 += 0.1698
-        rad_2 += 0.1698
+        rad_1 += ((360 / 37) * (math.pi / 180))
+        rad_2 += ((360 / 37) * (math.pi / 180))
+
     #Centro ruleta y borde
     pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 260, 20)
     pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 150)
 
+    #números ruleta 
     roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
     
+    #texto = 0 en ruleta
     x0 = (screen_width // 2 ) + (215 * math.cos(rad_num1))
     y0 = screen_height // 2 + (215 * math.sin(rad_num1))
     font0 = pygame.font.Font(None, 20)
@@ -139,6 +142,7 @@ def draw_roulette():
     text_rect0 = (x0,y0)
     screen.blit(text0, text_rect0)
     
+    #show numbers in roulette
     for number in roulette_numbers:    
         x = (screen_width // 2 ) + (215 * math.cos(rad_num))
         y = screen_height // 2 + (215 * math.sin(rad_num))
@@ -147,5 +151,6 @@ def draw_roulette():
         text_rect = (x,y)
         screen.blit(text, text_rect)
         rad_num += ((360/37) * (math.pi/180)) 
+
 if __name__ == "__main__":
     main()
