@@ -101,6 +101,8 @@ def draw_roulette():
 
     rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
-    pygame.draw.polygon()
+    pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
+                        (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
+                        (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
 if __name__ == "__main__":
     main()
