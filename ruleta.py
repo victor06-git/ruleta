@@ -120,13 +120,14 @@ def draw_roulette():
     rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
    
+    
     #Ruleta parte verde del 0
-    pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
-                        (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
-                        (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
-    pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 , screen_height // 2), 
-                                         (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
-                                         (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))], 2)
+    pygame.draw.polygon(screen, GREEN, [((screen_width // 2) / 2, screen_height // 2 - 100),
+                        ((screen_width // 2) / 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first)) - 100),
+                        ((screen_width // 2) / 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)) - 100)])
+    pygame.draw.polygon(screen, YELLOW, [((screen_width // 2) / 2, screen_height // 2 - 100), 
+                                         ((screen_width // 2) / 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first)) - 100),
+                                         ((screen_width // 2) / 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)) - 100)], 2)
        
     #RULETA ROJO/NEGRO
     for angle in range(36):    
@@ -144,6 +145,7 @@ def draw_roulette():
                                              (screen_width // 2 / 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)) - 100)], 2)
         rad_1 += ((360 / 37) * (math.pi / 180))
         rad_2 += ((360 / 37) * (math.pi / 180))
+    
     #Centro ruleta y borde
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 260, 20)
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 150)
@@ -169,11 +171,16 @@ def draw_roulette():
 
 #Tabla de apuestas
 def table():
+    #Parte del 0
     points_rect0 = [(1100, 50), (950, 100), (1250, 100), (1100, 50)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
+    pygame.draw.polygon(screen, DARK_GREEN, points_rect0, 3)
+
+    font = pygame.font.SysFont(None, 30)
+    text = font.render(str(0), True, WHITE)
+    text_rect = (1100 , 70) #Posicion de texto
+    screen.blit(text, text_rect)
     
-
-
     height_casella = (600 / 13)
     width_casella = (300 / 3)     
     for  columna in range(3):
