@@ -173,20 +173,6 @@ def table():
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
     
 
-    numeros_caselles = {
-        "Primera":{
-            "Rojo": [3, 9, 18, 21, 27, 36],
-            "Negro": [6, 12, 15, 24, 30, 33]
-        },
-        "Segunda": {
-            "Rojo": [5,11,17 , 23,29, 32],
-            "Negro": [2, 8, 14, 20, 26, 35]
-        },
-        "Tercero": {
-            "Rojo": [1, 7, 13, 19, 25, 31],
-            "Negro": [4, 10, 16, 22, 28, 34]
-        }
-    }
 
     height_casella = (600 / 13)
     width_casella = (300 / 3)     
@@ -203,25 +189,19 @@ def table():
                     color = BLACK
                 else:
                     color = RED
-           
-            if color == RED:
-                color_number = "Rojo"
-            else:
-                color_number = "Negro"
-            
-            if columna == 0:
-                column_number = "Tercero"
-            elif columna == 1:
-                column_number = "Segunda"
-            else:
-                column_number = "Primera"
 
+            if columna == 0:
+                column_number = 0
+            elif columna == 1:
+                column_number = 1
+            else:
+                column_number = 2
             
             pygame.draw.rect(screen, WHITE, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella), 3) #Contorno casilla
             pygame.draw.rect(screen, color, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella)) #Relleno de color la casilla
             
             #Números casillas
-            numbers = numeros_caselles[column_number][color_number][fila // 2]
+            numbers = chips[column_number][fila]
             font = pygame.font.SysFont(None, 25)
             text = font.render(str(numbers), True, WHITE)
             text_rect = (950 + (columna * width_casella) + 50, 100 + ( fila * height_casella) + 15) #Posicion de texto
