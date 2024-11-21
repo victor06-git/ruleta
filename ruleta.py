@@ -158,14 +158,32 @@ def table():
     points_rect0 = [(screen_width // 2 - 50, screen_height // 2 + 200), (screen_width // 2 + 50, screen_height // 2 - 20), (screen_width // 2 + 50, screen_height // 2 + 400)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
 
-    points_rect = {
+    numeros_caselles = {
         "Primera":{
-            "Rojo": [3, 9, 12, 18, 21, 27, 30, 36]
+            "Rojo": [3, 9, 12, 18, 21, 27, 30, 36],
+            "Negro": [6, 15, 24, 33]
         },
         "Segunda": {
-            "Rojo"
+            "Rojo": [5, 14, 23, 32],
+            "Negro": [2, 8, 11, 17, 20, 26, 29, 35]
+        },
+        "Tercero": {
+            "Rojo": [1, 7, 16, 19, 25, 34],
+            "Negro": [4, 10, 13, 22, 28, 31]
         }
     }
+
+    for fila, color in numeros_caselles:
+        
+        
+        if color == "Rojo":
+            color_casella = RED
+        elif color == "Negro":
+            color_casella = BLACK
+            
+        pygame.draw.polygon(screen, color_casella, )
+
+        
 
 
 if __name__ == "__main__":
