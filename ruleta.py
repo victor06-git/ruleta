@@ -31,8 +31,8 @@ clock = pygame.time.Clock()
 
 
 # Definir la finestra
-screen_width = 1600
-screen_height = 950
+screen_width = 1400
+screen_height = 750
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Ruleta')
 
@@ -65,7 +65,7 @@ def main():
 # Gestionar events
 # Gestionar events
 def app_events():
-    global clicked, spinning
+    global clicked
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Botón cerrar ventana
@@ -128,8 +128,8 @@ def draw_roulette():
         pygame.draw.polygon(screen, YELLOW, [(screen_width // 2 / 2 , screen_height // 2 - 100), 
                                              (screen_width // 2 / 2 + (250 * math.cos(rad_1)), screen_height // 2 + (250 * math.sin(rad_1)) - 100),
                                              (screen_width // 2 / 2 + (250 * math.cos(rad_2)), screen_height // 2 + (250 * math.sin(rad_2)) - 100)], 2)
-        rad_1 += 0.1698
-        rad_2 += 0.1698
+        rad_1 += ((360 / 37) * (math.pi / 180))
+        rad_2 += ((360 / 37) * (math.pi / 180))
     #Centro ruleta y borde
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 260, 20)
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 150)
@@ -155,45 +155,65 @@ def draw_roulette():
         screen.blit(text, text_rect)
         rad_num += ((360/37) * (math.pi/180)) 
 
+#Tabla de apuestas
 def table():
-    points_rect0 = [(1150, 100), (950, 200), (1350, 200), (1150, 100)]
+    points_rect0 = [(1100, 50), (950, 100), (1250, 100), (1100, 50)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
+    
 
     numeros_caselles = {
         "Primera":{
-            "Rojo": [3, 9, 12, 18, 21, 27, 30, 36],
-            "Negro": [6, 15, 24, 33]
+            "Rojo": [3, 9, 18, 21, 27, 36],
+            "Negro": [6, 12, 15, 24, 30, 33]
         },
         "Segunda": {
-            "Rojo": [5, 14, 23, 32],
-            "Negro": [2, 8, 11, 17, 20, 26, 29, 35]
+            "Rojo": [5,11,17 , 23,29, 32],
+            "Negro": [2, 8, 14, 20, 26, 35]
         },
         "Tercero": {
-            "Rojo": [1, 7, 16, 19, 25, 34],
-            "Negro": [4, 10, 13, 22, 28, 31]
+            "Rojo": [1, 7, 13, 19, 25, 31],
+            "Negro": [4, 10, 16, 22, 28, 34]
         }
     }
 
-    """ for fila, color in numeros_caselles:
-        if color == "Rojo":
-            color_casella = RED
-        elif color == "Negro":
-            color_casella = BLACK"""
-    
     height_casella = (600 / 13)
-    width_casella = (400 / 3)
-    midax2 = 950 + width_casella
-    miday2 = 200 + height_casella
-    miday = 200
-    
-    for _ in range(13):
-        #Hacer bucle fila y bucle columna
-        #Hacer por cuadrado y no poligono
-        rect = [(950, miday), (950, miday2), (midax2, miday2), (midax2, 200), (950, miday)]
-        pygame.draw.polygon(screen, BLACK, rect, 4)
-        miday += height_casella
-        miday2 += height_casella
-        
+    width_casella = (300 / 3)     
+    for  columna in range(3):
+        for fila in range(12):
+            
+            if columna == 0 or columna == 2:
+                if fila % 2 == 0:
+                    color = RED
+                else: 
+                    color = BLACK
+            if columna == 1:
+                if fila % 2 == 0:
+                    color = BLACK
+                else:
+                    color = RED
+           
+            if color == RED:
+                color_number = "Rojo"
+            else:
+                color_number = "Negro"
+            
+            if columna == 0:
+                column_number = "Tercero"
+            elif columna == 1:
+                column_number = "Segunda"
+            else:
+                column_number = "Primera"
+
+            
+            pygame.draw.rect(screen, WHITE, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella), 3) #Contorno casilla
+            pygame.draw.rect(screen, color, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella)) #Relleno de color la casilla
+            
+            #Números casillas
+            numbers = numeros_caselles[column_number][color_number][fila // 2]
+            font = pygame.font.SysFont(None, 25)
+            text = font.render(str(numbers), True, WHITE)
+            text_rect = (950 + (columna * width_casella) + 50, 100 + ( fila * height_casella) + 15) #Posicion de texto
+            screen.blit(text, text_rect)
 
 def draw_grid():
     # Color de la cuadrícula
