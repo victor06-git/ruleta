@@ -31,7 +31,7 @@ clock = pygame.time.Clock()
 
 
 # Definir la finestra
-screen_width = 1500
+screen_width = 1600
 screen_height = 950
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Ruleta')
@@ -87,6 +87,7 @@ def app_draw():
     # Pintar el fons de blanc
     screen.fill(GREY)
 
+    draw_grid()
     
     draw_roulette()
     table()
@@ -155,7 +156,7 @@ def draw_roulette():
         rad_num += ((360/37) * (math.pi/180)) 
 
 def table():
-    points_rect0 = [(screen_width // 2 - 50, screen_height // 2 + 200), (screen_width // 2 + 50, screen_height // 2 - 20), (screen_width // 2 + 50, screen_height // 2 + 400)]
+    points_rect0 = [(1150, 100), (950, 200), (1350, 200), (1150, 100)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
 
     numeros_caselles = {
@@ -178,11 +179,47 @@ def table():
             color_casella = RED
         elif color == "Negro":
             color_casella = BLACK"""
-    x2 = 50
-    x3 = 150
-    pygame.draw.polygon(screen, BLACK, [(screen_width // 2 + x2, screen_height // 2 - 20), (screen_width // 2 + x3, screen_height // 2 - 20), (screen_width // 2 + x3, screen_height // 2 + 65), (screen_width // 2 + x2, screen_height // 2 + 65)], 4)
-
+    
+    height_casella = (600 / 13)
+    width_casella = (400 / 3)
+    midax2 = 950 + width_casella
+    miday2 = 200 + height_casella
+    miday = 200
+    
+    for _ in range(13):
+        #Hacer bucle fila y bucle columna
+        #Hacer por cuadrado y no poligono
+        rect = [(950, miday), (950, miday2), (midax2, miday2), (midax2, 200), (950, miday)]
+        pygame.draw.polygon(screen, BLACK, rect, 4)
+        miday += height_casella
+        miday2 += height_casella
         
+
+def draw_grid():
+    # Color de la cuadrícula
+    GRID_COLOR = (50, 50, 50)
+    
+    # Tamaño de las celdas
+    cell_size = 50
+    
+    # Dibujar líneas verticales
+    for x in range(0, screen_width, cell_size):
+        pygame.draw.line(screen, GRID_COLOR, (x, 0), (x, screen_height))
+        
+        # Añadir texto de coordenadas X
+        font = pygame.font.Font(None, 20)
+        text = font.render(str(x), True, (200, 200, 200))
+        screen.blit(text, (x+2, 2))
+    
+    # Dibujar líneas horizontales
+    for y in range(0, screen_height, cell_size):
+        pygame.draw.line(screen, GRID_COLOR, (0, y), (screen_width, y))
+        
+        # Añadir texto de coordenadas Y
+        font = pygame.font.Font(None, 20)
+        text = font.render(str(y), True, (200, 200, 200))
+        screen.blit(text, (2, y+2))
+
 
 
 if __name__ == "__main__":
