@@ -39,6 +39,14 @@ pygame.display.set_caption('Ruleta')
 
 clicked = False
 mouse_x, mouse_y = -1, -1
+rad_first = ((360 / 37) * (math.pi / 180)) #First angle
+rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
+
+rad_1 = rad_second
+rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
+
+rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
+rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
 
 
 # Bucle de l'aplicació
@@ -76,7 +84,8 @@ def app_events():
 # Fer càlculs
 def app_run():
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    pass
+    if spinning:
+        pass
     
         
 # Dibuixar
@@ -103,6 +112,7 @@ def draw_roulette():
 
     rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
+
     pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
                         (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
                         (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
