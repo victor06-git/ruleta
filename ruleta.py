@@ -23,6 +23,7 @@ BROWN = (98,52,18)
 
 
 
+
 #Para saber como va a girar la ruleta y definir el angulo que lleva cada número para mostrarlo
 
 pygame.init()
@@ -40,14 +41,7 @@ pygame.display.set_caption('Ruleta')
 clicked = False
 mouse_x, mouse_y = -1, -1
 
-rad_first = ((360 / 37) * (math.pi / 180)) #First angle
-rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
 
-rad_1 = rad_second
-rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
-
-rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
-rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
 
 velocity = 0.1
 acceleration = 0.03
@@ -69,40 +63,22 @@ def main():
     sys.exit()
 
 # Gestionar events
+# Gestionar events
 def app_events():
     global clicked, spinning
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: # Botó tancar finestra
+        if event.type == pygame.QUIT:  # Botón cerrar ventana
             return False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            clicked = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            clicked = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                pass
-                
-    
+        
+
     return True
 
 # Fer càlculs
 def app_run():
-    global rad_1, rad_2, rad_first, rad_second,rad_num1, rad_num, velocity, spinning
+    
     mouse_x, mouse_y = pygame.mouse.get_pos()
     
-    if spinning == True:
-        rad_1 += velocity
-        rad_2 += velocity
-        rad_first += velocity
-        rad_second += velocity
-        rad_num += velocity
-        rad_num1 += velocity
-
-        velocity -= acceleration
-
-        if velocity <= 0:
-            spinning = False
-            velocity = 0.1 
+    pass
     
         
 # Dibuixar
@@ -116,11 +92,30 @@ def app_draw():
     
     pygame.display.update()
 
-
-
 #Roulette
 def draw_roulette():
-    global rad_1,rad_2,rad_first,rad_second,rad_num,rad_num1
+    global spinning
+
+    rad_first = ((360 / 37) * (math.pi / 180)) #First angle
+    rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
+
+    rad_1 = rad_second
+    rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
+
+    rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
+    rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
+
+    if spinning == True:
+        rad_1 += 0.001
+        rad_2 += 0.001
+        rad_first += 0.001
+        rad_second += 0.001
+        rad_num1 += 0.001
+        rad_num += 0.001
+
+        if rad_1 == ((360 / 37) * (math.pi / 180) * 20):
+            spinning = False
+        
     
     """rad_first = ((360 / 37) * (math.pi / 180)) #First angle
     rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
@@ -160,7 +155,9 @@ def draw_roulette():
     pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 150)
 
     #lista números ruleta
-    roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
+    roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 
+                        11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 
+                        9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
     
     x0 = (screen_width // 2 ) + (215 * math.cos(rad_num1))
     y0 = screen_height // 2 + (215 * math.sin(rad_num1))
@@ -177,5 +174,8 @@ def draw_roulette():
         text_rect = (x,y)
         screen.blit(text, text_rect)
         rad_num += ((360/37) * (math.pi/180)) 
+
+
+
 if __name__ == "__main__":
     main()
