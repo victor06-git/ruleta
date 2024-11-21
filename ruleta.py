@@ -40,6 +40,17 @@ pygame.display.set_caption('Ruleta')
 clicked = False
 mouse_x, mouse_y = -1, -1
 
+rad_first = ((360 / 37) * (math.pi / 180)) #First angle
+rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
+
+rad_1 = rad_second
+rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
+
+rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
+rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
+
+velocity = 0.1
+
 
 # Bucle de l'aplicació
 def main():
@@ -75,8 +86,13 @@ def app_events():
 
 # Fer càlculs
 def app_run():
+    global rad_1, rad_2, rad_first, rad_second, velocity
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    pass
+    if spinning:
+        rad_1 += velocity
+        rad_2 += velocity
+        rad_first += velocity
+        rad_second += velocity
     
         
 # Dibuixar
@@ -94,6 +110,7 @@ def app_draw():
 
 #Roulette
 def draw_roulette():
+    global rad_1,rad_2,rad_first,rad_second,rad_num,rad_num1
     
     rad_first = ((360 / 37) * (math.pi / 180)) #First angle
     rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
@@ -103,6 +120,8 @@ def draw_roulette():
 
     rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
+   
+    #Ruleta parte verde del 0
     pygame.draw.polygon(screen, GREEN, [(screen_width // 2, screen_height // 2),
                         (screen_width // 2 + (250 * math.cos(rad_first)), screen_height // 2 + (250 * math.sin(rad_first))),
                         (screen_width // 2 + (250 * math.cos(rad_second)), screen_height // 2 + (250 * math.sin(rad_second)))])
@@ -130,6 +149,7 @@ def draw_roulette():
     pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 260, 20)
     pygame.draw.circle(screen, BROWN, (screen_width // 2, screen_height // 2), 150)
 
+    #lista números ruleta
     roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
     
     x0 = (screen_width // 2 ) + (215 * math.cos(rad_num1))
