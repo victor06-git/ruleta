@@ -110,14 +110,17 @@ def draw_roulette():
     rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
 
     if spinning == True:
-        rad_1 += 0.001
-        rad_2 += 0.001
-        rad_first += 0.001
-        rad_second += 0.001
-        rad_num1 += 0.001
-        rad_num += 0.001
+        vel = 0.1
+        rad_1 += vel
+        rad_2 += vel
+        rad_first += vel
+        rad_second += vel
+        rad_num1 += vel
+        rad_num += vel
 
-        if rad_1 == ((360 / 37) * (math.pi / 180) * 20):
+        vel -= 0.001
+
+        if vel <= 0:
             spinning = False
         
     
