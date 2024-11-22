@@ -223,7 +223,11 @@ def table():
     pygame.draw.rect(screen, BLACK, (950 + (width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 - 3 , 100 + (600 / 13) * 12, width_casella + 3, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
-
+    font = pygame.font.SysFont(None, 60)
+    text = font.render(str("2 to 1"), True, WHITE)
+    text_rect = (((950 + 1250) / 2 - 4) , 70) #Posicion de texto 0 centrado
+    screen.blit(text, text_rect)
+    
     #Pares/ Impares/ Rojo/ Negro
     pygame.draw.rect(screen, DARK_GREEN, (850, 100 ,100, 100))
     pygame.draw.rect(screen, DARK_GREEN, (850 , 200, 100, 180))
@@ -251,16 +255,21 @@ def table():
     for  columna in range(3):
         for fila in range(12):
             
-            if columna == 0 or columna == 2:
-                if fila % 2 == 0:
+            if columna == 0:
+                if fila == 0 or  fila ==2 or  fila ==5 or fila == 6 or  fila ==8 or fila ==11:
                     color = RED
                 else: 
                     color = BLACK
             if columna == 1:
-                if fila % 2 == 0:
+                if fila == 0 or fila == 2 or fila ==3 or  fila ==5 or fila ==6 or fila ==8 or fila == 9 or fila ==11:
                     color = BLACK
                 else:
                     color = RED
+            if columna == 2:
+                if fila == 0 or fila == 2 or fila ==3 or fila ==5 or  fila ==6 or  fila ==8 or  fila ==9 or  fila ==11:
+                    color = RED
+                else:
+                    color = BLACK
 
             if columna == 0:
                 column_number = 0
