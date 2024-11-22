@@ -301,7 +301,7 @@ def draw_grid():
         # Añadir texto de coordenadas Y
         font = pygame.font.Font(None, 20)
         text = font.render(str(y), True, (200, 200, 200))
-        screen.blit(text, (2, y+2))
+        screen.blit(text, (2, y + 2))
 
 if __name__ == "__main__":
     main()
