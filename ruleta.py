@@ -176,6 +176,7 @@ def draw_roulette():
 
     pygame.draw.line(screen, YELLOW, (screen_width // 2 / 2, screen_height // 2 - 100), (screen_width // 2 / 2 - 70, screen_height // 2 - 100), 5)
     pygame.draw.circle(screen, YELLOW, (screen_width // 2 / 2 - 70, screen_height // 2 - 100), 10)
+    
     #lista números ruleta
     roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
     
@@ -201,6 +202,7 @@ def table():
     points_rect0 = [(1100, 50), (950, 100), (1250, 100), (1100, 50)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
     pygame.draw.polygon(screen, DARK_GREEN, points_rect0)
+    
 
     font = pygame.font.SysFont(None, 30)
     text = font.render(str(0), True, WHITE)
@@ -208,7 +210,12 @@ def table():
     screen.blit(text, text_rect)
     
     height_casella = (600 / 13)
-    width_casella = (300 / 3)     
+    width_casella = (300 / 3)
+
+    pygame.draw.rect(screen, BLACK, (950 + (width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
+    pygame.draw.rect(screen, BLACK, (950 , 100 + (600 / 13) * 12, width_casella, height_casella), 3)
+    pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
+
     for  columna in range(3):
         for fila in range(12):
             
@@ -230,7 +237,9 @@ def table():
             else:
                 column_number = 2
             
-            pygame.draw.rect(screen, WHITE, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella), 3) #Contorno casilla
+
+            
+            pygame.draw.rect(screen, BLACK, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella), 3) #Contorno casilla
             pygame.draw.rect(screen, color, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella)) #Relleno de color la casilla
             
             #Números casillas
@@ -239,7 +248,10 @@ def table():
             text = font.render(str(numbers), True, WHITE)
             text_rect = (950 + (columna * width_casella) + 50, 100 + ( fila * height_casella) + 15) #Posicion de texto
             screen.blit(text, text_rect)
+    
 
+
+#graellas
 def draw_grid():
     
     # Color de la cuadrícula
