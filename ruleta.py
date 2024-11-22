@@ -51,11 +51,6 @@ rad_2 = ((360 / 37) * (math.pi / 180) + (rad_1))
 rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
 rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
 
-velocity = 0.1
-
-
-
-
 
 
 
@@ -77,10 +72,11 @@ def main():
 # Gestionar events
 # Gestionar events
 def app_events():
-    global clicked
+    global clicked, rotation, velocidad
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Botón cerrar ventana
+            rotation = False
             return False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             clicked = True
@@ -90,9 +86,10 @@ def app_events():
 
 # Fer càlculs
 def app_run():
-    global rad_1, rad_2, rad_first, rad_second, velocity
+    
     mouse_x, mouse_y = pygame.mouse.get_pos()
     pass
+    
     
         
 # Dibuixar
@@ -103,14 +100,16 @@ def app_draw():
 
     draw_grid()
     
-    draw_roulette()
-    table()
+    draw_roulette() #Función draw ruleta
+    table() #Función dibujar tabla
     
     pygame.display.update()
 
+
+
 #Roulette
 def draw_roulette():
-    global rad_1,rad_2,rad_first,rad_second,rad_num,rad_num1
+    
     
     rad_first = ((360 / 37) * (math.pi / 180)) #First angle
     rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
