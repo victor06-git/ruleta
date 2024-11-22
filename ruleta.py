@@ -212,11 +212,16 @@ def table():
     height_casella = (600 / 13)
     width_casella = (300 / 3)
 
+    #Casillas apuesta columna
     pygame.draw.rect(screen, BLACK, (950 + (width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 , 100 + (600 / 13) * 12, width_casella, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
 
+    #Pares/ Impares/ Rojo/ Negro
     pygame.draw.rect(screen, BLACK, (850, 100 ,100, (550 / 4)), 3)
+    pygame.draw.rect(screen, BLACK, (850 , 100 + (550 / 4),100, (550 / 4)), 3)
+    pygame.draw.rect(screen, BLACK, (850 , 100 + (2 * (550 / 4)),100, (550 / 4)), 3)
+    pygame.draw.rect(screen, BLACK, (850 , 100 + (3 * (550 / 4)),100, (550 / 4)), 3)
 
     for  columna in range(3):
         for fila in range(12):
