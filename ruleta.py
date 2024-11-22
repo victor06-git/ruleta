@@ -80,16 +80,15 @@ def app_events():
             return False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             clicked = True
-            change = True
         elif event.type == pygame.MOUSEBUTTONUP:
             clicked = False
     return True
 
 # Fer càlculs
 def app_run():
-    
+    global rad_first, rad_second
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    if change:
+    pass
 
     
     
