@@ -2,11 +2,11 @@
 import math
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame
 import sys
 import random
 from funciones import *
 from variables import *
+import pygame
 
 # Definir colors
 WHITE = (255, 255, 255)
