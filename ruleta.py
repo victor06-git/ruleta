@@ -303,7 +303,5 @@ def draw_grid():
         text = font.render(str(y), True, (200, 200, 200))
         screen.blit(text, (2, y+2))
 
-
-
 if __name__ == "__main__":
     main()
