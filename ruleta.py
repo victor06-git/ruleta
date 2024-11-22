@@ -216,6 +216,8 @@ def table():
     pygame.draw.rect(screen, BLACK, (950 , 100 + (600 / 13) * 12, width_casella, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
 
+    pygame.draw.rect(screen, BLACK, (950 -  2 * width_casella, 100 + ()))
+
     for  columna in range(3):
         for fila in range(12):
             
