@@ -241,6 +241,7 @@ def table():
             screen.blit(text, text_rect)
 
 def draw_grid():
+    
     # Color de la cuadrícula
     GRID_COLOR = (50, 50, 50)
     
