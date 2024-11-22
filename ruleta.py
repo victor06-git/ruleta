@@ -218,10 +218,28 @@ def table():
     pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
 
     #Pares/ Impares/ Rojo/ Negro
-    pygame.draw.rect(screen, BLACK, (850, 100 ,100, (550 / 4)), 3)
-    pygame.draw.rect(screen, BLACK, (850 , 100 + (550 / 4),100, (550 / 4)), 3)
-    pygame.draw.rect(screen, BLACK, (850 , 100 + (2 * (550 / 4)),100, (550 / 4)), 3)
-    pygame.draw.rect(screen, BLACK, (850 , 100 + (3 * (550 / 4)),100, (550 / 4)), 3)
+    pygame.draw.rect(screen, DARK_GREEN, (850, 100 ,100, 100))
+    pygame.draw.rect(screen, DARK_GREEN, (850 , 200, 100, 180))
+    pygame.draw.rect(screen, DARK_GREEN, (850 , 380, 100, 180))
+    pygame.draw.rect(screen, DARK_GREEN, (850 ,555, 100, 100))
+    pygame.draw.rect(screen, BLACK, (850, 100 ,100, 100), 3)
+    pygame.draw.rect(screen, BLACK, (850 , 200, 100, 180), 3)
+    pygame.draw.rect(screen, BLACK, (850 , 380, 100, 180), 3)
+    pygame.draw.rect(screen, BLACK, (850 ,555, 100, 100), 3)
+
+    #Rombos rojo y negro
+    pygame.draw.polygon(screen, RED, [(900, (200 + ((180 / 2) / 4))),
+                                      (850 + (100 / 4), (200 + (180 / 2))), 
+                                      (900, (200 + 3 * (180 / 4) + 25)),
+                                      (950 - ((100 / 4)), (200 + (180 / 2)))])
+    
+    pygame.draw.polygon(screen, BLACK, [(900, (380 + ((180 / 2) / 4))),
+                                      (850 + (100 / 4), (380 + (180 / 2))), 
+                                      (900, (380 + 3 * (180 / 4) + 25)),
+                                      (950 - ((100 / 4)), (380 + (180 / 2)))])
+    
+
+
 
     for  columna in range(3):
         for fila in range(12):
