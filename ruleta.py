@@ -59,6 +59,7 @@ velocity = 0.1
 
 
 
+
 # Bucle de l'aplicació
 def main():
     is_looping = True
@@ -198,6 +199,9 @@ def draw_roulette():
 
 #Tabla de apuestas
 def table():
+
+    global tablero
+
     #Parte del 0
     points_rect0 = [(1100, 50), (950, 100), (1250, 100), (1100, 50)]
     pygame.draw.polygon(screen, BLACK, points_rect0, 3)
@@ -239,7 +243,7 @@ def table():
                                       (950 - ((100 / 4)), (380 + (180 / 2)))])
     
 
-
+    tablero = [] #--> esto es para cojer los numeros y los colores
 
     for  columna in range(3):
         for fila in range(12):
@@ -269,11 +273,47 @@ def table():
             
             #Números casillas
             numbers = chips[column_number][fila]
+            tablero.append({"numero":numbers, "color":color})
             font = pygame.font.SysFont(None, 25)
             text = font.render(str(numbers), True, WHITE)
             text_rect = (950 + (columna * width_casella) + 50, 100 + ( fila * height_casella) + 15) #Posicion de texto
             screen.blit(text, text_rect)
-            
+
+    return tablero
+
+def bet_color (player):
+
+    tablero_colors = table()
+    print(tablero_colors)
+
+    red_black = input("Deseas apostar al rojo o al negro ? ").lower()#--> LO dicho esto se tiene que detectar automáticamente
+
+    if red_black == "rojo":
+
+        for entry in tablero_colors:
+            if entry["color"] == RED:
+                print(f"Has ganado la apuesta, el color del numero era {tablero_colors["color"]}")
+            elif entry["color"] == BLACK:
+                print(f"Has perdido, el color era {tablero_colors["color"]}")
+
+    elif red_black == "negro":
+
+        """ HESTO ES LA FORMA EN QUE SE TIENEN QUE LLAMAR, PERO AUN NO ESTA IMPLEMENTADO EL MOVIMIENTO DE LA RULETA
+        
+        selected_num = random.choice(roulette_numbers)
+           for entry in tablero_colors:
+                if selected_num == entry["numbers"]:
+                    selected_color = entry["color"]"""
+
+        for entry in tablero_colors:
+            if entry["color"] == RED:
+                print(f"Has perdido la apuesta, el color del numero era {tablero_colors["color"]}")
+            elif entry["color"] == BLACK:
+                print(f"Has ganado, el color era {tablero_colors["color"]}")
+
+print(bet_color("player_purple"))
+
+
 #graellas
 def draw_grid():
     

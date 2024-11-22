@@ -69,3 +69,4 @@ def bet_number(player):
 def color_number(player):
     orange = 1
 
+
