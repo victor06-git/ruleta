@@ -147,7 +147,7 @@ def draw_roulette():
         rad_1 += ((360 / 37) * (math.pi / 180))
         rad_2 += ((360 / 37) * (math.pi / 180))
     
-    #Centro ruleta y borde
+    #Centro ruleta y borde / decoración
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 260, 20)
     pygame.draw.circle(screen, BROWN, (screen_width // 2 / 2, screen_height // 2 - 100), 150)
     pygame.draw.circle(screen, GRAY, (screen_width // 2 / 2, screen_height // 2 - 100), 190, 10)
@@ -178,7 +178,11 @@ def draw_roulette():
     pygame.draw.circle(screen, YELLOW, (screen_width // 2 / 2 - 70, screen_height // 2 - 100), 10)
     
     #lista números ruleta
-    roulette_numbers = [32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26]
+    roulette_numbers = [32, 15, 19, 4, 21, 2, 25,
+                        17, 34, 6, 27, 13, 36, 11,
+                        30, 8, 23, 10, 5, 24, 16, 
+                        33, 1, 20, 14, 31, 9, 22, 
+                        18, 29, 7, 28, 12, 35, 3, 26]
     
     x0 = (screen_width // 2 / 2 ) + (215 * math.cos(rad_num1))
     y0 = screen_height // 2  + (215 * math.sin(rad_num1)) - 100
@@ -213,8 +217,11 @@ def table():
     width_casella = (300 / 3)
 
     #Casillas apuesta columna
+    pygame.draw.rect(screen, DARK_GREEN, (950 + (width_casella), 100 + (600 / 13) * 12, width_casella, height_casella))
+    pygame.draw.rect(screen, DARK_GREEN, (950 - 3 , 100 + (600 / 13) * 12, width_casella + 3, height_casella))
+    pygame.draw.rect(screen, DARK_GREEN, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella))
     pygame.draw.rect(screen, BLACK, (950 + (width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
-    pygame.draw.rect(screen, BLACK, (950 , 100 + (600 / 13) * 12, width_casella, height_casella), 3)
+    pygame.draw.rect(screen, BLACK, (950 - 3 , 100 + (600 / 13) * 12, width_casella + 3, height_casella), 3)
     pygame.draw.rect(screen, BLACK, (950 + (2 * width_casella), 100 + (600 / 13) * 12, width_casella, height_casella), 3)
 
     #Pares/ Impares/ Rojo/ Negro
@@ -263,7 +270,7 @@ def table():
                 column_number = 2
             
 
-            
+            #Casillas apuestas números
             pygame.draw.rect(screen, BLACK, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella), 3) #Contorno casilla
             pygame.draw.rect(screen, color, (950 + (columna * width_casella), 100 + (fila * height_casella), width_casella, height_casella)) #Relleno de color la casilla
             
