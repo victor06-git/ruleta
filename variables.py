@@ -62,11 +62,11 @@ chips = [[1,4,7,10,13,16,19,22,25,28,31,34],
 
 numbers = list(range(37))
 
+roulette_numbers = [32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26]
+
 chip_0 = 0
 
-#def lost_money(player) --> maneja la logica de la perdida de diner0
-#def gain_money(player) --> maneja la logica de la ganancia de dinero
-#def manage_money(player) --> en función de si gana o pierde, se añade a player["dinero"]
+#def manage_money(player) --> Esto es mas que nada por si quiere convertir sus fichas a dinero
 #def banca_rota(player)--> maneja la logica de cuando te quedas en banca rota
 #def comprar fichas (player) --> Esta funcion permite comprar fichas
 

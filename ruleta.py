@@ -273,9 +273,7 @@ def table():
             text = font.render(str(numbers), True, WHITE)
             text_rect = (950 + (columna * width_casella) + 50, 100 + ( fila * height_casella) + 15) #Posicion de texto
             screen.blit(text, text_rect)
-    
-
-
+            
 #graellas
 def draw_grid():
     
@@ -302,8 +300,6 @@ def draw_grid():
         font = pygame.font.Font(None, 20)
         text = font.render(str(y), True, (200, 200, 200))
         screen.blit(text, (2, y+2))
-
-
 
 if __name__ == "__main__":
     main()
