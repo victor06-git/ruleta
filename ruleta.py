@@ -52,7 +52,7 @@ rad_num = ((360 / 37) * (math.pi / 180) * 5) / 2
 rad_num1 = ((360 / 37) * (math.pi / 180) * 3) / 2
 
 
-
+change = False
 
 # Bucle de l'aplicació
 def main():
@@ -72,7 +72,7 @@ def main():
 # Gestionar events
 # Gestionar events
 def app_events():
-    global clicked, rotation, velocidad
+    global clicked, rotation, change
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Botón cerrar ventana
@@ -80,6 +80,7 @@ def app_events():
             return False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             clicked = True
+            change = True
         elif event.type == pygame.MOUSEBUTTONUP:
             clicked = False
     return True
@@ -88,7 +89,8 @@ def app_events():
 def app_run():
     
     mouse_x, mouse_y = pygame.mouse.get_pos()
-    pass
+    if change:
+
     
     
         
@@ -109,7 +111,7 @@ def app_draw():
 
 #Roulette
 def draw_roulette():
-    
+    global rad_first, rad_second
     
     rad_first = ((360 / 37) * (math.pi / 180)) #First angle
     rad_second = ((360 / 37) * (math.pi / 180) + (rad_first)) #Second angle
